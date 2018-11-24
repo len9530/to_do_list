@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9+b$vi55)8x$)9=z&3j56r!%3k%mhw_@3u3llm13)6f^xcz4ot'
+SECRET_KEY = 'w+ipycc7pmn4%m4+g8lm6p&n)at)dem7tqqr(me@0%7e=em$v@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'to_do_list.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'todolist',
+        'USER':'root',
+        'PASSWORD':'root123',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
 
