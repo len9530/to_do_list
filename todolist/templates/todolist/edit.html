@@ -50,7 +50,7 @@
             <a class="nav-link" href="{% url 'todolist:关于' %}">关于本站</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" col-7 method="POST" action="/todo/home/">
+        <form class="form-inline mt-2 mt-md-0" col-7 method="POST" action="{% url 'todolist:主页' %}">
           {% csrf_token %}
           <input name="item" class="form-control mr-sm-2" type="text" placeholder="待办事项" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">添加</button>
@@ -59,11 +59,11 @@
     </nav>
 
 	<main role="main" class='container'>
-    <form method="POST" action="{% url 'todolist:重写' forloop%}">
+    <form method="POST" action="{% url 'todolist:重写' i_id %}">
       {% csrf_token %}
       <div class="form-group">
         <label for="editTodo"></label>
-        <input name="edit" class="form-control form-control-lg" type="text" value="{{ nowitem }}">
+        <input name="reset" class="form-control form-control-lg" type="text" value="{{ nowitem }}">
         <small id="help" class="form-text text-muted">在这里编辑待办事项</small>
       </div>
       <button type="submit" class="btn btn-primary btn-lg btn-block" >提交</button>

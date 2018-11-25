@@ -46,7 +46,7 @@
             <a class="nav-link" href="{% url 'todolist:关于' %}">关于本站</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" col-7 method='POST' action="">
+        <form class="form-inline mt-2 mt-md-0" col-7 method='POST' action="{% url 'todolist:主页' %}">
           {% csrf_token %}
           <input name="item" class="form-control mr-sm-2" type="text" placeholder="待办事项" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">添加</button>
@@ -84,29 +84,28 @@
 			    </tr>
 			  </thead>
       {% for i in itemlist %}
-        {% if i.finish == False %}
+        {% if i.done == 0 %}
           <tbody class="no-underline">
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ i.item }}</td>
+            <td>{{ i.thing }}</td>
             <td>
-              <form method="POST" action="{% url 'todolist:编辑' forloop.counter%}">
+              <form method="POST" action="{% url 'todolist:编辑' i.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary btn-sm">编辑</button>
               </form>
             </td>
             <td>
-            <form method="POST" action="{% url 'todolist:划掉' forloop.counter%}">
+            <form method="POST" action="{% url 'todolist:划掉' i.id %}">
               {% csrf_token %}
               <input name="已完成" type="hidden" value="T">
               <button type="submit" class="btn btn-primary btn-sm">划掉</button>
             </form>
             </td>
             <td>
-              <!--<form method="POST" action="{% url 'todolist:主页' %}">-->
-              <!--{% csrf_token %}-->
-                <button type="submit" class="btn btn-primary btn-sm"data-toggle="modal" data-target="#exampleModal">删除</button>
-              <!--</form>-->
+
+              <button type="button" class="btn btn-primary btn-sm"data-toggle="modal" data-target="#exampleModal">删除</button>
+
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -117,11 +116,11 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      确定要删除未完成事项： <strong>{{ delitem }}</strong> 吗？  
+                      确定要删除未完成事项吗？  
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <form action="{% url 'todolist:删除' forloop.counter %}" method="POST">
+                        <form action="{% url 'todolist:删除' i.id %}" method="POST">
                           {% csrf_token %}
                           <button type="submit" class="btn btn-primary">确认删除</button>
                         </form>
@@ -136,20 +135,18 @@
           <tbody class="no-underline">
           <tr class="table-dark">
             <th class="text-dark" scope="row">{{ forloop.counter }}</th>
-            <td class="text-dark" id="line-through">{{ i.item }}</td>
+            <td class="text-dark" id="line-through">{{ i.thing }}</td>
             <td class="text-secondary">不可编辑</td>
             <td class="text-secondary">
-            <form action="{% url 'todolist:划掉' forloop.counter%}" method="POST">
+            <form action="{% url 'todolist:划掉' i.id %}" method="POST">
               {% csrf_token %}
               <input name="已完成" type="hidden" value="F">
               <button type="submit" class="btn btn-primary btn-sm">撤销</button>
             </form>
             </td>
             <td>
-              {# <a class="text-danger" href="{% url 'todolist:删除' forloop.counter%} ">删除</a> #}
-              <form action="{% url 'todolist:删除' forloop.counter %}" method="POST">
+              <form action="{% url 'todolist:删除' i.id %}" method="POST">
                 {% csrf_token %}
-                {# <input name="已完成" type="hidden" value="F"> #}
                 <button type="submit" class="btn btn-danger btn-sm">删除</button>
               </form>
             </td>
