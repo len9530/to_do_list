@@ -34,12 +34,13 @@ def delete(request,i_id):
 def finish(request,i_id):
 	if request.POST['已完成'] == 'T':
 		f = Todo.objects.get(id = i_id)
-		print(f) 
-		f.done = 1
+		f.done = True
+		f.save()
 		return redirect('todolist:主页')
 	elif request.POST['已完成'] == 'F':
 		f = Todo.objects.get(id = i_id)
-		f.done = 0
+		f.done = False
+		f.save()
 		return redirect('todolist:主页')
 
 
