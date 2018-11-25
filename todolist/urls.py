@@ -9,5 +9,5 @@ urlpatterns = [
     path('edit/<i_id>',views.edit,name = '编辑'),
     path('del/<i_id>',views.delete,name = '删除'),
     path('finish/<i_id>',views.finish,name = '划掉'),
-    path('reset/<i_id>',views.reset,name = '重写'),
+    path('reset/<d>',views.reset,name = '重写'),
 ]

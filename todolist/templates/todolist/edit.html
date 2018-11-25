@@ -57,18 +57,25 @@
         </form>
       </div>
     </nav>
-
-	<main role="main" class='container'>
-    <form method="POST" action="{% url 'todolist:重写' i_id %}">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="editTodo"></label>
-        <input name="reset" class="form-control form-control-lg" type="text" value="{{ nowitem }}">
-        <small id="help" class="form-text text-muted">在这里编辑待办事项</small>
-      </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block" >提交</button>
-    </form>
-	</main>
+  	<main role="main" class='container'>
+      {% if warn %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong><center style='font-size:1.25em'>{{ warn }}</center></strong> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endif %}
+      <form method="POST" action="{% url 'todolist:重写' d %}">
+        {% csrf_token %}
+        <div class="form-group">  
+          <label for="editTodo"></label>
+          <input name="reset" class="form-control form-control-lg" type="text" value="{{ nowitem }}">
+          <small id="help" class="form-text text-muted">在这里编辑待办事项</small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" >提交</button>
+      </form>
+  	</main>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

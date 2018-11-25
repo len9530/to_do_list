@@ -20,12 +20,10 @@ def about(request):
 
 def edit(request,i_id):
 	ni = Todo.objects.get(id = i_id).thing
-	return render(request,'todolist/edit.html',{'nowitem':ni,'i_id':i_id})
+	return render(request,'todolist/edit.html',{'nowitem':ni,'d':i_id})
 
 
 def delete(request,i_id):
-	# LIST.pop(int(forloop_counter) - 1)
-	print(i_id)
 	a = Todo.objects.get(id = i_id)
 	a.delete()
 	return redirect('todolist:主页')
@@ -44,10 +42,15 @@ def finish(request,i_id):
 		return redirect('todolist:主页')
 
 
-def reset(request,i_id):
-	a = Todo.objects.get(id = i_id)
-	a.thing = request.POST.get('reset')
-	a.save()
-	return redirect('todolist:主页')
+def reset(request,d):
+	if request.POST['reset'] == '':
+		print(123)
+		print(d)
+		return render(request,'todolist/edit.html',{'warn':'请输入内容','d':d})
+	else:
+		a = Todo.objects.get(id = d)
+		a.thing = request.POST.get('reset')
+		a.save()
+		return redirect('todolist:主页')
 
 

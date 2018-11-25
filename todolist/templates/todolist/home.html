@@ -49,7 +49,10 @@
         <form class="form-inline mt-2 mt-md-0" col-7 method='POST' action="{% url 'todolist:主页' %}">
           {% csrf_token %}
           <input name="item" class="form-control mr-sm-2" type="text" placeholder="待办事项" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">添加</button>
+          <button class="btn btn-outline-success mr-5 my-2 my-sm-0" type="submit">添加</button>
+          <div id="sign">
+          <a href="#" class="mr-5 my-2 my-sm-0">登陆</a>
+          </div>
         </form>
       </div>
     </nav>
@@ -103,25 +106,25 @@
             </form>
             </td>
             <td>
-              <button type="button" class="btn btn-primary btn-sm"data-toggle="modal" data-target="#exampleModal">删除</button>
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <button type="button" class="btn btn-primary btn-sm"data-toggle="modal" data-target="#exampleModal{{ i.id }}">删除</button>
+              <div class="modal fade" id="exampleModal{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{ i.id }}Label" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">请确认</h5>
+                      <h5 class="modal-title" id="exampleModal{{ i.id }}Label">请确认</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                      确定要删除未完成事项吗？  
+                      确定要删除未完成事项：<strong>{{ i.thing }}</strong> 吗？  
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <form action="{% url 'todolist:删除' i.id %}" method="POST">
-                          {% csrf_token %}
-                          <button type="submit" class="btn btn-primary">确认删除</button>
-                        </form>
+                      <form action="{% url 'todolist:删除' i.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">确认删除</button>
+                      </form>
                     </div>
                   </div>
                 </div>
